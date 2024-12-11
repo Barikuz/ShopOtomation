@@ -82,6 +82,7 @@
             this.Close.Size = new System.Drawing.Size(32, 32);
             this.Close.TabIndex = 3;
             this.Close.UseVisualStyleBackColor = false;
+            this.Close.Click += new System.EventHandler(this.Close_Click);
             // 
             // Minimize
             // 
@@ -96,6 +97,7 @@
             this.Minimize.Size = new System.Drawing.Size(32, 32);
             this.Minimize.TabIndex = 4;
             this.Minimize.UseVisualStyleBackColor = false;
+            this.Minimize.Click += new System.EventHandler(this.Minimize_Click);
             // 
             // Login
             // 
@@ -110,6 +112,7 @@
             this.Login.Size = new System.Drawing.Size(150, 50);
             this.Login.TabIndex = 5;
             this.Login.UseVisualStyleBackColor = false;
+            this.Login.Click += new System.EventHandler(this.Login_Click);
             // 
             // ForgetPassword
             // 
@@ -123,6 +126,7 @@
             this.ForgetPassword.Size = new System.Drawing.Size(145, 24);
             this.ForgetPassword.TabIndex = 6;
             this.ForgetPassword.Text = "Şifremi Unuttum";
+            this.ForgetPassword.Click += new System.EventHandler(this.ForgetPassword_Click);
             // 
             // Register
             // 
@@ -136,6 +140,7 @@
             this.Register.Size = new System.Drawing.Size(77, 24);
             this.Register.TabIndex = 7;
             this.Register.Text = "Kayıt Ol";
+            this.Register.Click += new System.EventHandler(this.Register_Click);
             // 
             // LoginPage
             // 

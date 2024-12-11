@@ -15,6 +15,24 @@ namespace ShopOtomation
         public RegisterPage()
         {
             InitializeComponent();
+            DoubleBuffered = true;
+        }
+
+        private void Login_Click(object sender, EventArgs e)
+        {
+
+            CommonFunctions.switchBetweenPagesWithAnimation(this, new LoginPage());
+
+        }
+
+        private void Close_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void Minimize_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
         }
     }
 }

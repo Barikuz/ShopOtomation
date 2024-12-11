@@ -72,6 +72,7 @@
             this.Close.Size = new System.Drawing.Size(32, 32);
             this.Close.TabIndex = 15;
             this.Close.UseVisualStyleBackColor = false;
+            this.Close.Click += new System.EventHandler(this.Close_Click);
             // 
             // Minimize
             // 
@@ -86,6 +87,7 @@
             this.Minimize.Size = new System.Drawing.Size(32, 32);
             this.Minimize.TabIndex = 16;
             this.Minimize.UseVisualStyleBackColor = false;
+            this.Minimize.Click += new System.EventHandler(this.Minimize_Click);
             // 
             // Login
             // 
@@ -99,6 +101,7 @@
             this.Login.Size = new System.Drawing.Size(84, 24);
             this.Login.TabIndex = 17;
             this.Login.Text = "Giriş Yap";
+            this.Login.Click += new System.EventHandler(this.Login_Click);
             // 
             // Register
             // 
@@ -112,6 +115,7 @@
             this.Register.Size = new System.Drawing.Size(77, 24);
             this.Register.TabIndex = 18;
             this.Register.Text = "Kayıt Ol";
+            this.Register.Click += new System.EventHandler(this.Register_Click);
             // 
             // ForgetPassword
             // 

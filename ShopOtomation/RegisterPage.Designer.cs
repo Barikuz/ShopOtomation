@@ -107,6 +107,7 @@
             this.Login.Size = new System.Drawing.Size(84, 24);
             this.Login.TabIndex = 10;
             this.Login.Text = "Giriş Yap";
+            this.Login.Click += new System.EventHandler(this.Login_Click);
             // 
             // Close
             // 
@@ -121,6 +122,7 @@
             this.Close.Size = new System.Drawing.Size(32, 32);
             this.Close.TabIndex = 11;
             this.Close.UseVisualStyleBackColor = false;
+            this.Close.Click += new System.EventHandler(this.Close_Click);
             // 
             // Minimize
             // 
@@ -135,6 +137,7 @@
             this.Minimize.Size = new System.Drawing.Size(32, 32);
             this.Minimize.TabIndex = 12;
             this.Minimize.UseVisualStyleBackColor = false;
+            this.Minimize.Click += new System.EventHandler(this.Minimize_Click);
             // 
             // Register
             // 
