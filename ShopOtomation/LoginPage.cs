@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace ShopOtomation
 {
-    public partial class Form1 : DevExpress.XtraEditors.XtraForm
+    public partial class LoginPage : DevExpress.XtraEditors.XtraForm
     {
-        public Form1()
+        public LoginPage()
         {
             InitializeComponent();
         }
