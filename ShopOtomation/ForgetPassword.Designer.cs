@@ -34,13 +34,16 @@
             this.Minimize = new System.Windows.Forms.Button();
             this.Login = new System.Windows.Forms.Label();
             this.Register = new System.Windows.Forms.Label();
+            this.NewPassword = new System.Windows.Forms.TextBox();
+            this.NewPasswordAgain = new System.Windows.Forms.TextBox();
+            this.Username = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // SecurityQuestionAnswer
             // 
             this.SecurityQuestionAnswer.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.SecurityQuestionAnswer.Font = new System.Drawing.Font("Outfit", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SecurityQuestionAnswer.Location = new System.Drawing.Point(260, 264);
+            this.SecurityQuestionAnswer.Location = new System.Drawing.Point(260, 519);
             this.SecurityQuestionAnswer.Name = "SecurityQuestionAnswer";
             this.SecurityQuestionAnswer.Size = new System.Drawing.Size(320, 24);
             this.SecurityQuestionAnswer.TabIndex = 10;
@@ -53,7 +56,7 @@
             this.ResetPassword.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.ResetPassword.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.ResetPassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ResetPassword.Location = new System.Drawing.Point(345, 359);
+            this.ResetPassword.Location = new System.Drawing.Point(345, 590);
             this.ResetPassword.Name = "ResetPassword";
             this.ResetPassword.Size = new System.Drawing.Size(150, 50);
             this.ResetPassword.TabIndex = 14;
@@ -96,7 +99,7 @@
             this.Login.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Login.Font = new System.Drawing.Font("Outfit", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Login.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(211)))), ((int)(((byte)(105)))));
-            this.Login.Location = new System.Drawing.Point(377, 430);
+            this.Login.Location = new System.Drawing.Point(377, 660);
             this.Login.Name = "Login";
             this.Login.Size = new System.Drawing.Size(84, 24);
             this.Login.TabIndex = 17;
@@ -110,25 +113,57 @@
             this.Register.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Register.Font = new System.Drawing.Font("Outfit", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Register.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(211)))), ((int)(((byte)(105)))));
-            this.Register.Location = new System.Drawing.Point(379, 465);
+            this.Register.Location = new System.Drawing.Point(379, 693);
             this.Register.Name = "Register";
             this.Register.Size = new System.Drawing.Size(77, 24);
             this.Register.TabIndex = 18;
             this.Register.Text = "Kayıt Ol";
             this.Register.Click += new System.EventHandler(this.Register_Click);
             // 
+            // NewPassword
+            // 
+            this.NewPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.NewPassword.Font = new System.Drawing.Font("Outfit", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewPassword.Location = new System.Drawing.Point(260, 349);
+            this.NewPassword.Name = "NewPassword";
+            this.NewPassword.Size = new System.Drawing.Size(320, 24);
+            this.NewPassword.TabIndex = 19;
+            // 
+            // NewPasswordAgain
+            // 
+            this.NewPasswordAgain.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.NewPasswordAgain.Font = new System.Drawing.Font("Outfit", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewPasswordAgain.Location = new System.Drawing.Point(260, 434);
+            this.NewPasswordAgain.Name = "NewPasswordAgain";
+            this.NewPasswordAgain.Size = new System.Drawing.Size(320, 24);
+            this.NewPasswordAgain.TabIndex = 20;
+            // 
+            // Username
+            // 
+            this.Username.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Username.Font = new System.Drawing.Font("Outfit", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Username.Location = new System.Drawing.Point(260, 264);
+            this.Username.Name = "Username";
+            this.Username.Size = new System.Drawing.Size(320, 24);
+            this.Username.TabIndex = 21;
+            // 
             // ForgetPassword
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::ShopOtomation.Properties.Resources.ForgetPassword;
-            this.ClientSize = new System.Drawing.Size(840, 550);
+            this.BackgroundImage = global::ShopOtomation.Properties.Resources.Forget_Password_V3;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ClientSize = new System.Drawing.Size(840, 760);
+            this.Controls.Add(this.Username);
+            this.Controls.Add(this.NewPasswordAgain);
+            this.Controls.Add(this.NewPassword);
             this.Controls.Add(this.Register);
             this.Controls.Add(this.Login);
             this.Controls.Add(this.Minimize);
             this.Controls.Add(this.Close);
             this.Controls.Add(this.ResetPassword);
             this.Controls.Add(this.SecurityQuestionAnswer);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ForgetPassword";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -146,5 +181,8 @@
         private System.Windows.Forms.Button Minimize;
         private System.Windows.Forms.Label Login;
         private System.Windows.Forms.Label Register;
+        private System.Windows.Forms.TextBox NewPassword;
+        private System.Windows.Forms.TextBox NewPasswordAgain;
+        private System.Windows.Forms.TextBox Username;
     }
 }

@@ -42,7 +42,7 @@
             // 
             this.Username.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Username.Font = new System.Drawing.Font("Outfit", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Username.Location = new System.Drawing.Point(260, 221);
+            this.Username.Location = new System.Drawing.Point(260, 230);
             this.Username.Name = "Username";
             this.Username.Size = new System.Drawing.Size(320, 24);
             this.Username.TabIndex = 0;
@@ -51,7 +51,7 @@
             // 
             this.Password.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Password.Font = new System.Drawing.Font("Outfit", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Password.Location = new System.Drawing.Point(260, 306);
+            this.Password.Location = new System.Drawing.Point(260, 315);
             this.Password.Name = "Password";
             this.Password.Size = new System.Drawing.Size(320, 24);
             this.Password.TabIndex = 1;
@@ -146,9 +146,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImageLayoutStore = System.Windows.Forms.ImageLayout.Tile;
-            this.BackgroundImageStore = global::ShopOtomation.Properties.Resources.LoginPage;
-            this.ClientSize = new System.Drawing.Size(840, 550);
+            this.BackgroundImageLayoutStore = System.Windows.Forms.ImageLayout.Center;
+            this.BackgroundImageStore = global::ShopOtomation.Properties.Resources.LoginPage_V2;
+            this.ClientSize = new System.Drawing.Size(840, 565);
             this.Controls.Add(this.Register);
             this.Controls.Add(this.ForgetPassword);
             this.Controls.Add(this.Login);
@@ -157,6 +157,7 @@
             this.Controls.Add(this.RemindMe);
             this.Controls.Add(this.Password);
             this.Controls.Add(this.Username);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "LoginPage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

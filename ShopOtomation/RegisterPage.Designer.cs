@@ -28,6 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
             this.SecurityQuestionAnswer = new System.Windows.Forms.TextBox();
             this.PasswordAgain = new System.Windows.Forms.TextBox();
             this.Password = new System.Windows.Forms.TextBox();
@@ -38,7 +43,8 @@
             this.Close = new System.Windows.Forms.Button();
             this.Minimize = new System.Windows.Forms.Button();
             this.Register = new System.Windows.Forms.Button();
-            this.SecurityQuestion = new DevExpress.XtraEditors.DropDownButton();
+            this.SecurityQuestion = new DevExpress.XtraEditors.ComboBoxEdit();
+            ((System.ComponentModel.ISupportInitialize)(this.SecurityQuestion.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // SecurityQuestionAnswer
@@ -152,26 +158,34 @@
             this.Register.Size = new System.Drawing.Size(150, 50);
             this.Register.TabIndex = 13;
             this.Register.UseVisualStyleBackColor = false;
+            this.Register.Click += new System.EventHandler(this.Register_Click);
             // 
             // SecurityQuestion
             // 
-            this.SecurityQuestion.Appearance.BackColor = System.Drawing.Color.Transparent;
-            this.SecurityQuestion.Appearance.BackColor2 = System.Drawing.Color.Transparent;
-            this.SecurityQuestion.Appearance.BorderColor = System.Drawing.Color.Transparent;
-            this.SecurityQuestion.Appearance.Options.UseBackColor = true;
-            this.SecurityQuestion.Appearance.Options.UseBorderColor = true;
-            this.SecurityQuestion.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.SecurityQuestion.DropDownArrowStyle = DevExpress.XtraEditors.DropDownArrowStyle.Hide;
-            this.SecurityQuestion.Location = new System.Drawing.Point(260, 647);
+            this.SecurityQuestion.Location = new System.Drawing.Point(260, 645);
             this.SecurityQuestion.Name = "SecurityQuestion";
-            this.SecurityQuestion.Size = new System.Drawing.Size(313, 23);
-            this.SecurityQuestion.TabIndex = 14;
+            this.SecurityQuestion.Properties.AllowFocused = false;
+            this.SecurityQuestion.Properties.Appearance.BackColor = System.Drawing.Color.Transparent;
+            this.SecurityQuestion.Properties.Appearance.Font = new System.Drawing.Font("Outfit", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SecurityQuestion.Properties.Appearance.Options.UseBackColor = true;
+            this.SecurityQuestion.Properties.Appearance.Options.UseFont = true;
+            this.SecurityQuestion.Properties.AppearanceDropDown.Font = new System.Drawing.Font("Outfit", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SecurityQuestion.Properties.AppearanceDropDown.Options.UseFont = true;
+            this.SecurityQuestion.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.SecurityQuestion.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo, "", -1, true, false, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            this.SecurityQuestion.Properties.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.SecurityQuestion.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.SecurityQuestion.Size = new System.Drawing.Size(320, 28);
+            this.SecurityQuestion.TabIndex = 15;
             // 
             // RegisterPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImage = global::ShopOtomation.Properties.Resources.RegisterPage;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(840, 950);
             this.Controls.Add(this.SecurityQuestion);
             this.Controls.Add(this.Register);
@@ -184,10 +198,12 @@
             this.Controls.Add(this.Password);
             this.Controls.Add(this.PasswordAgain);
             this.Controls.Add(this.SecurityQuestionAnswer);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "RegisterPage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RegisterPage";
+            ((System.ComponentModel.ISupportInitialize)(this.SecurityQuestion.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -204,6 +220,6 @@
         private System.Windows.Forms.Button Close;
         private System.Windows.Forms.Button Minimize;
         private System.Windows.Forms.Button Register;
-        private DevExpress.XtraEditors.DropDownButton SecurityQuestion;
+        private DevExpress.XtraEditors.ComboBoxEdit SecurityQuestion;
     }
 }

@@ -63,6 +63,26 @@ namespace ShopOtomation.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Forget_Password_V2 {
+            get {
+                object obj = ResourceManager.GetObject("Forget Password-V2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Forget_Password_V3 {
+            get {
+                object obj = ResourceManager.GetObject("Forget Password-V3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ForgetPassword {
             get {
                 object obj = ResourceManager.GetObject("ForgetPassword", resourceCulture);
@@ -76,6 +96,16 @@ namespace ShopOtomation.Properties {
         internal static System.Drawing.Bitmap LoginPage {
             get {
                 object obj = ResourceManager.GetObject("LoginPage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LoginPage_V2 {
+            get {
+                object obj = ResourceManager.GetObject("LoginPage-V2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
