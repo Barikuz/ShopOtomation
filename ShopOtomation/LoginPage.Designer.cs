@@ -45,7 +45,7 @@
             this.Username.Location = new System.Drawing.Point(260, 230);
             this.Username.Name = "Username";
             this.Username.Size = new System.Drawing.Size(320, 24);
-            this.Username.TabIndex = 0;
+            this.Username.TabIndex = 3;
             // 
             // Password
             // 
@@ -54,7 +54,7 @@
             this.Password.Location = new System.Drawing.Point(260, 315);
             this.Password.Name = "Password";
             this.Password.Size = new System.Drawing.Size(320, 24);
-            this.Password.TabIndex = 1;
+            this.Password.TabIndex = 4;
             // 
             // RemindMe
             // 
@@ -66,7 +66,7 @@
             this.RemindMe.Location = new System.Drawing.Point(255, 357);
             this.RemindMe.Name = "RemindMe";
             this.RemindMe.Size = new System.Drawing.Size(16, 16);
-            this.RemindMe.TabIndex = 2;
+            this.RemindMe.TabIndex = 5;
             this.RemindMe.UseVisualStyleBackColor = false;
             // 
             // Close
@@ -80,7 +80,7 @@
             this.Close.Location = new System.Drawing.Point(797, 10);
             this.Close.Name = "Close";
             this.Close.Size = new System.Drawing.Size(32, 32);
-            this.Close.TabIndex = 3;
+            this.Close.TabIndex = 1;
             this.Close.UseVisualStyleBackColor = false;
             this.Close.Click += new System.EventHandler(this.Close_Click);
             // 
@@ -95,7 +95,7 @@
             this.Minimize.Location = new System.Drawing.Point(750, 10);
             this.Minimize.Name = "Minimize";
             this.Minimize.Size = new System.Drawing.Size(32, 32);
-            this.Minimize.TabIndex = 4;
+            this.Minimize.TabIndex = 2;
             this.Minimize.UseVisualStyleBackColor = false;
             this.Minimize.Click += new System.EventHandler(this.Minimize_Click);
             // 
@@ -110,7 +110,7 @@
             this.Login.Location = new System.Drawing.Point(345, 399);
             this.Login.Name = "Login";
             this.Login.Size = new System.Drawing.Size(150, 50);
-            this.Login.TabIndex = 5;
+            this.Login.TabIndex = 6;
             this.Login.UseVisualStyleBackColor = false;
             this.Login.Click += new System.EventHandler(this.Login_Click);
             // 
@@ -124,7 +124,7 @@
             this.ForgetPassword.Location = new System.Drawing.Point(349, 465);
             this.ForgetPassword.Name = "ForgetPassword";
             this.ForgetPassword.Size = new System.Drawing.Size(145, 24);
-            this.ForgetPassword.TabIndex = 6;
+            this.ForgetPassword.TabIndex = 7;
             this.ForgetPassword.Text = "Şifremi Unuttum";
             this.ForgetPassword.Click += new System.EventHandler(this.ForgetPassword_Click);
             // 
@@ -138,7 +138,7 @@
             this.Register.Location = new System.Drawing.Point(381, 500);
             this.Register.Name = "Register";
             this.Register.Size = new System.Drawing.Size(77, 24);
-            this.Register.TabIndex = 7;
+            this.Register.TabIndex = 8;
             this.Register.Text = "Kayıt Ol";
             this.Register.Click += new System.EventHandler(this.Register_Click);
             // 

@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
             this.SecurityQuestionAnswer = new System.Windows.Forms.TextBox();
             this.PasswordAgain = new System.Windows.Forms.TextBox();
             this.Password = new System.Windows.Forms.TextBox();
@@ -54,7 +54,7 @@
             this.SecurityQuestionAnswer.Location = new System.Drawing.Point(260, 731);
             this.SecurityQuestionAnswer.Name = "SecurityQuestionAnswer";
             this.SecurityQuestionAnswer.Size = new System.Drawing.Size(320, 24);
-            this.SecurityQuestionAnswer.TabIndex = 4;
+            this.SecurityQuestionAnswer.TabIndex = 7;
             // 
             // PasswordAgain
             // 
@@ -63,7 +63,8 @@
             this.PasswordAgain.Location = new System.Drawing.Point(260, 562);
             this.PasswordAgain.Name = "PasswordAgain";
             this.PasswordAgain.Size = new System.Drawing.Size(320, 24);
-            this.PasswordAgain.TabIndex = 5;
+            this.PasswordAgain.TabIndex = 6;
+            this.PasswordAgain.UseSystemPasswordChar = true;
             // 
             // Password
             // 
@@ -72,7 +73,8 @@
             this.Password.Location = new System.Drawing.Point(260, 476);
             this.Password.Name = "Password";
             this.Password.Size = new System.Drawing.Size(320, 24);
-            this.Password.TabIndex = 6;
+            this.Password.TabIndex = 5;
+            this.Password.UseSystemPasswordChar = true;
             // 
             // Username
             // 
@@ -81,7 +83,7 @@
             this.Username.Location = new System.Drawing.Point(260, 391);
             this.Username.Name = "Username";
             this.Username.Size = new System.Drawing.Size(320, 24);
-            this.Username.TabIndex = 7;
+            this.Username.TabIndex = 4;
             // 
             // Surname
             // 
@@ -90,7 +92,7 @@
             this.Surname.Location = new System.Drawing.Point(260, 306);
             this.Surname.Name = "Surname";
             this.Surname.Size = new System.Drawing.Size(320, 24);
-            this.Surname.TabIndex = 8;
+            this.Surname.TabIndex = 4;
             // 
             // FirstName
             // 
@@ -99,7 +101,7 @@
             this.FirstName.Location = new System.Drawing.Point(260, 221);
             this.FirstName.Name = "FirstName";
             this.FirstName.Size = new System.Drawing.Size(320, 24);
-            this.FirstName.TabIndex = 9;
+            this.FirstName.TabIndex = 3;
             // 
             // Login
             // 
@@ -111,7 +113,7 @@
             this.Login.Location = new System.Drawing.Point(377, 870);
             this.Login.Name = "Login";
             this.Login.Size = new System.Drawing.Size(84, 24);
-            this.Login.TabIndex = 10;
+            this.Login.TabIndex = 9;
             this.Login.Text = "Giriş Yap";
             this.Login.Click += new System.EventHandler(this.Login_Click);
             // 
@@ -126,7 +128,7 @@
             this.Close.Location = new System.Drawing.Point(797, 10);
             this.Close.Name = "Close";
             this.Close.Size = new System.Drawing.Size(32, 32);
-            this.Close.TabIndex = 11;
+            this.Close.TabIndex = 1;
             this.Close.UseVisualStyleBackColor = false;
             this.Close.Click += new System.EventHandler(this.Close_Click);
             // 
@@ -141,7 +143,7 @@
             this.Minimize.Location = new System.Drawing.Point(750, 10);
             this.Minimize.Name = "Minimize";
             this.Minimize.Size = new System.Drawing.Size(32, 32);
-            this.Minimize.TabIndex = 12;
+            this.Minimize.TabIndex = 2;
             this.Minimize.UseVisualStyleBackColor = false;
             this.Minimize.Click += new System.EventHandler(this.Minimize_Click);
             // 
@@ -156,7 +158,7 @@
             this.Register.Location = new System.Drawing.Point(345, 801);
             this.Register.Name = "Register";
             this.Register.Size = new System.Drawing.Size(150, 50);
-            this.Register.TabIndex = 13;
+            this.Register.TabIndex = 8;
             this.Register.UseVisualStyleBackColor = false;
             this.Register.Click += new System.EventHandler(this.Register_Click);
             // 
@@ -173,11 +175,12 @@
             this.SecurityQuestion.Properties.AppearanceDropDown.Options.UseFont = true;
             this.SecurityQuestion.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.SecurityQuestion.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo, "", -1, true, false, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo, "", -1, true, false, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
             this.SecurityQuestion.Properties.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.SecurityQuestion.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.SecurityQuestion.Size = new System.Drawing.Size(320, 28);
-            this.SecurityQuestion.TabIndex = 15;
+            this.SecurityQuestion.TabIndex = 6;
+            this.SecurityQuestion.TabStop = false;
             // 
             // RegisterPage
             // 

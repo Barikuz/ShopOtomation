@@ -46,7 +46,7 @@
             this.SecurityQuestionAnswer.Location = new System.Drawing.Point(260, 519);
             this.SecurityQuestionAnswer.Name = "SecurityQuestionAnswer";
             this.SecurityQuestionAnswer.Size = new System.Drawing.Size(320, 24);
-            this.SecurityQuestionAnswer.TabIndex = 10;
+            this.SecurityQuestionAnswer.TabIndex = 6;
             // 
             // ResetPassword
             // 
@@ -59,7 +59,7 @@
             this.ResetPassword.Location = new System.Drawing.Point(345, 590);
             this.ResetPassword.Name = "ResetPassword";
             this.ResetPassword.Size = new System.Drawing.Size(150, 50);
-            this.ResetPassword.TabIndex = 14;
+            this.ResetPassword.TabIndex = 7;
             this.ResetPassword.UseVisualStyleBackColor = false;
             // 
             // Close
@@ -73,7 +73,7 @@
             this.Close.Location = new System.Drawing.Point(797, 10);
             this.Close.Name = "Close";
             this.Close.Size = new System.Drawing.Size(32, 32);
-            this.Close.TabIndex = 15;
+            this.Close.TabIndex = 1;
             this.Close.UseVisualStyleBackColor = false;
             this.Close.Click += new System.EventHandler(this.Close_Click);
             // 
@@ -88,7 +88,7 @@
             this.Minimize.Location = new System.Drawing.Point(750, 10);
             this.Minimize.Name = "Minimize";
             this.Minimize.Size = new System.Drawing.Size(32, 32);
-            this.Minimize.TabIndex = 16;
+            this.Minimize.TabIndex = 2;
             this.Minimize.UseVisualStyleBackColor = false;
             this.Minimize.Click += new System.EventHandler(this.Minimize_Click);
             // 
@@ -102,7 +102,7 @@
             this.Login.Location = new System.Drawing.Point(377, 660);
             this.Login.Name = "Login";
             this.Login.Size = new System.Drawing.Size(84, 24);
-            this.Login.TabIndex = 17;
+            this.Login.TabIndex = 8;
             this.Login.Text = "Giriş Yap";
             this.Login.Click += new System.EventHandler(this.Login_Click);
             // 
@@ -116,7 +116,7 @@
             this.Register.Location = new System.Drawing.Point(379, 693);
             this.Register.Name = "Register";
             this.Register.Size = new System.Drawing.Size(77, 24);
-            this.Register.TabIndex = 18;
+            this.Register.TabIndex = 9;
             this.Register.Text = "Kayıt Ol";
             this.Register.Click += new System.EventHandler(this.Register_Click);
             // 
@@ -127,7 +127,7 @@
             this.NewPassword.Location = new System.Drawing.Point(260, 349);
             this.NewPassword.Name = "NewPassword";
             this.NewPassword.Size = new System.Drawing.Size(320, 24);
-            this.NewPassword.TabIndex = 19;
+            this.NewPassword.TabIndex = 4;
             // 
             // NewPasswordAgain
             // 
@@ -136,7 +136,7 @@
             this.NewPasswordAgain.Location = new System.Drawing.Point(260, 434);
             this.NewPasswordAgain.Name = "NewPasswordAgain";
             this.NewPasswordAgain.Size = new System.Drawing.Size(320, 24);
-            this.NewPasswordAgain.TabIndex = 20;
+            this.NewPasswordAgain.TabIndex = 5;
             // 
             // Username
             // 
@@ -145,7 +145,7 @@
             this.Username.Location = new System.Drawing.Point(260, 264);
             this.Username.Name = "Username";
             this.Username.Size = new System.Drawing.Size(320, 24);
-            this.Username.TabIndex = 21;
+            this.Username.TabIndex = 3;
             // 
             // ForgetPassword
             // 
