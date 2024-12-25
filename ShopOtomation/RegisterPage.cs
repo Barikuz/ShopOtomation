@@ -15,19 +15,19 @@ namespace ShopOtomation
     public partial class RegisterPage : Form
     {
 
-        string connectionString = "Server=localhost;Database=shopotomation;Uid=root;Pwd=190464;";
-        string nullErrorsString;
-        InputData[] databaseEntries = new InputData[6];
+        string connectionString = "Server=localhost;Database=shopotomation;Uid=root;Pwd=190464;"; // For database connection
+        string nullErrorsString; // For record error messages if fields on form are empty
+        InputData[] databaseEntries = new InputData[6]; // For data entry into the database
+
+
 
         public RegisterPage()
         {
-
             InitializeComponent();
             DoubleBuffered = true;
 
             FillSecurityQuestions();
             CreateDatabaseEntries();
-
         }
 
         private void FillSecurityQuestions() // Fills the SecurityQuestion ComboBoxEdit with QuestionItem objects
@@ -49,6 +49,7 @@ namespace ShopOtomation
                             string id = reader.GetInt32("id").ToString();
                             string question = reader.GetString("question");
 
+                            // It is added together with the id so that the id can be added to the database later.
                             SecurityQuestion.Properties.Items.Add(new QuestionItem(id,question));
                             
                         }
@@ -61,7 +62,7 @@ namespace ShopOtomation
             }
         }
 
-        private void CreateDatabaseEntries()
+        private void CreateDatabaseEntries() // Create InputData objects and add them to an array for insert data to database later
         {
             databaseEntries[0] = new InputData("username", "Kullanıcı adı", Username);
             databaseEntries[1] = new InputData("user_password", "Parola", Password);
@@ -69,27 +70,40 @@ namespace ShopOtomation
             databaseEntries[3] = new InputData("surname", "Soyad", Surname);
             databaseEntries[4] = new InputData("security_question_id", "Güvenlik sorusu", SecurityQuestion);
             databaseEntries[5] = new InputData("security_question_answer", "Güvenlik sorusunun cevabı", SecurityQuestionAnswer);
-        } // Create data objects and add them to an array for insert data to database later
+        }
 
-        private void FillInputDatas()
+        private bool IsFieldEmpty(Control control, string name) // Checks if input fields empty on RegisterPage form
+        {
+            if (control.Text != "")
+            {
+                return false;
+            }
+            else
+            {
+                nullErrorsString += $"{name} alanı boş olamaz\n";
+                return true;
+            }
+        }
+
+        private void FillInputDatas() // Takes data from the form fields and fills it into InputData objects
         {
             foreach (InputData inputData in databaseEntries)
             {
-                if (!IsFieldEmpty(inputData.control, inputData.fieldNameOnForm))
+                if (!IsFieldEmpty(inputData.control, inputData.fieldNameOnForm)) // Check if the field is empty and prepare the error message
                 {
                     if (inputData.control is TextBox)
-                        inputData.value = inputData.control.Text; // If input field is a TextBox, get Text
+                        inputData.value = inputData.control.Text; // If input field is a TextBox, get text
 
-                    if (inputData.control is DevExpress.XtraEditors.ComboBoxEdit) // If input field is a DevExpress ComboBoxEdit, get Selected Item id
+                    if (inputData.control is DevExpress.XtraEditors.ComboBoxEdit) // If input field is a DevExpress ComboBoxEdit, get SelectedItem id
                     {
                         QuestionItem questionItem = (QuestionItem) SecurityQuestion.SelectedItem;
                         inputData.value = questionItem.id;
                     }
                 }
             }
-        }
+        } 
 
-        private void InsertDatabaseEntries()
+        private void InsertDatabaseEntries() // Retrieves data and saves it to database
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -97,30 +111,33 @@ namespace ShopOtomation
                 {
                     connection.Open();
 
+                    // The main query we will fill in later
                     string baseQuery = "INSERT INTO users ({0}) VALUES ({1})";
 
                     List<string> columnNames = new List<string>();
                     List<string> values = new List<string>();
 
-                    foreach (InputData inputData in databaseEntries)
+                    // Get all column names from InputData objects, save them and make placeholders for values section 
+                    foreach (InputData inputData in databaseEntries) 
                     {
                         columnNames.Add(inputData.columnNameOnDatabase); 
-                        values.Add($"@{inputData.columnNameOnDatabase}");
+                        values.Add($"@{inputData.columnNameOnDatabase}"); 
                     }
 
                     string columns = string.Join(", ", columnNames);
                     string valuePlaceholders = string.Join(", ", values);
 
+                    // Fill the main query with column names and placeholders
                     string query = string.Format(baseQuery, columns, valuePlaceholders);
 
 
-                    // Komut nesnesini oluşturma
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
 
+                        // Fill the value placeholders in the main query with actual values
                         foreach (InputData inputData in databaseEntries)
                         {
-
+                            // Check column name and make the required type conversion
                             if (inputData.columnNameOnDatabase == "security_question_id")
                             {
                                 command.Parameters.AddWithValue($"@{inputData.columnNameOnDatabase}", Convert.ToInt32(inputData.value));
@@ -133,10 +150,10 @@ namespace ShopOtomation
 
                         }
 
-                        // Komutu çalıştırma
+
                         int result = command.ExecuteNonQuery();
 
-                        // Sonuç kontrolü
+                        // Check the result and notify the user
                         if (result > 0)
                         {
                             MessageBox.Show("Başarıyla kayıt olundu!");
@@ -155,6 +172,8 @@ namespace ShopOtomation
             }
         }
 
+
+        //Click Events
         private void Login_Click(object sender, EventArgs e)
         {
 
@@ -198,25 +217,10 @@ namespace ShopOtomation
 
             
         }
-        
-        // This checks if input fields empty on RegisterPage form
-        private bool IsFieldEmpty(Control control,string name)
-        {
-            if(control.Text != "")
-            {
-                return false;
-            }
-            else
-            {
-                nullErrorsString += $"{name} alanı boş olamaz\n";
-                return true;
-            }
-        }
 
     }
 
-    // The class that combines security questions with id
-    public class QuestionItem
+    public class QuestionItem // Class that combines security questions with id
     {
         public string id;
         public string question;
@@ -233,7 +237,7 @@ namespace ShopOtomation
         }
     }
 
-    public class InputData
+    public class InputData // Class that prepares input data for entry into the database
     {
         public string columnNameOnDatabase;
         public string fieldNameOnForm;
