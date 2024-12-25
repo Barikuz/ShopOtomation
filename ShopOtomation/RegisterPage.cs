@@ -57,7 +57,9 @@ namespace ShopOtomation
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Hata: " + ex.Message);
+                    Console.WriteLine("Hata: " + ex.Message);
+                    MessageBox.Show("Veritabanı tarafında bir sorun oluştu.\nGüvenlik soruları getirilemedi.",
+                        "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -118,10 +120,10 @@ namespace ShopOtomation
                     List<string> values = new List<string>();
 
                     // Get all column names from InputData objects, save them and make placeholders for values section 
-                    foreach (InputData inputData in databaseEntries) 
+                    foreach (InputData inputData in databaseEntries)
                     {
-                        columnNames.Add(inputData.columnNameOnDatabase); 
-                        values.Add($"@{inputData.columnNameOnDatabase}"); 
+                        columnNames.Add(inputData.columnNameOnDatabase);
+                        values.Add($"@{inputData.columnNameOnDatabase}");
                     }
 
                     string columns = string.Join(", ", columnNames);
@@ -133,7 +135,6 @@ namespace ShopOtomation
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
-
                         // Fill the value placeholders in the main query with actual values
                         foreach (InputData inputData in databaseEntries)
                         {
@@ -145,40 +146,47 @@ namespace ShopOtomation
                             else
                             {
                                 command.Parameters.AddWithValue($"@{inputData.columnNameOnDatabase}", inputData.value);
-
                             }
-
                         }
-
 
                         int result = command.ExecuteNonQuery();
 
                         // Check the result and notify the user
                         if (result > 0)
                         {
-                            MessageBox.Show("Başarıyla kayıt olundu!");
+                            MessageBox.Show("Başarıyla kayıt olundu!", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            CommonFunctions.switchBetweenPagesWithAnimation(this, new LoginPage());
                         }
                         else
                         {
-                            MessageBox.Show("Kayıt işlemi başarısız.");
+                            MessageBox.Show("Kayıt işlemi başarısız.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
-
                 }
+
+                catch (MySqlException ex)
+                {
+                    Console.WriteLine("Hata: " + ex.Message);
+                    if (ex.Number == 1062) // Duplicate entry (UNIQUE violation)
+                    {
+                        MessageBox.Show("Bu kullanıcı adı zaten alınmış!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
                 catch (Exception ex)
                 {
                     Console.WriteLine("Hata: " + ex.Message);
+                    MessageBox.Show("Kayıt işlemi başarısız.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
 
+
         //Click Events
         private void Login_Click(object sender, EventArgs e)
         {
-
             CommonFunctions.switchBetweenPagesWithAnimation(this, new LoginPage());
-
         }
 
         private void Close_Click(object sender, EventArgs e)
@@ -201,7 +209,7 @@ namespace ShopOtomation
 
             if(nullErrorsString != null)
             {
-                MessageBox.Show(nullErrorsString);
+                MessageBox.Show(nullErrorsString,"Hata",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
             else
             {
@@ -211,7 +219,7 @@ namespace ShopOtomation
                 }
                 else
                 {
-                    MessageBox.Show("Parolalar eşleşmiyor!");
+                    MessageBox.Show("Parolalar eşleşmiyor!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
