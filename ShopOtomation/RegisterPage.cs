@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using DevExpress.XtraEditors.Controls;
+using static ShopOtomation.CommonFunctions;
+
 
 namespace ShopOtomation
 {
@@ -74,24 +76,11 @@ namespace ShopOtomation
             databaseEntries[5] = new InputData("security_question_answer", "Güvenlik sorusunun cevabı", SecurityQuestionAnswer);
         }
 
-        private bool IsFieldEmpty(Control control, string name) // Checks if input fields empty on RegisterPage form
-        {
-            if (control.Text != "")
-            {
-                return false;
-            }
-            else
-            {
-                nullErrorsString += $"{name} alanı boş olamaz\n";
-                return true;
-            }
-        }
-
         private void FillInputDatas() // Takes data from the form fields and fills it into InputData objects
         {
             foreach (InputData inputData in databaseEntries)
             {
-                if (!IsFieldEmpty(inputData.control, inputData.fieldNameOnForm)) // Check if the field is empty and prepare the error message
+                if (!IsFieldEmpty(inputData.control, inputData.fieldNameOnForm,ref nullErrorsString)) // Check if the field is empty and prepare the error message
                 {
                     if (inputData.control is TextBox)
                         inputData.value = inputData.control.Text; // If input field is a TextBox, get text
@@ -155,7 +144,7 @@ namespace ShopOtomation
                         if (result > 0)
                         {
                             MessageBox.Show("Başarıyla kayıt olundu!", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            CommonFunctions.switchBetweenPagesWithAnimation(this, new LoginPage());
+                            switchBetweenPagesWithAnimation(this, new LoginPage());
                         }
                         else
                         {
@@ -186,7 +175,7 @@ namespace ShopOtomation
         //Click Events
         private void Login_Click(object sender, EventArgs e)
         {
-            CommonFunctions.switchBetweenPagesWithAnimation(this, new LoginPage());
+            switchBetweenPagesWithAnimation(this, new LoginPage());
         }
 
         private void Close_Click(object sender, EventArgs e)
@@ -205,7 +194,7 @@ namespace ShopOtomation
 
             FillInputDatas();
             
-            IsFieldEmpty(PasswordAgain, "Şifre tekrarı");
+            IsFieldEmpty(PasswordAgain, "Şifre tekrarı",ref nullErrorsString);
 
             if(nullErrorsString != null)
             {

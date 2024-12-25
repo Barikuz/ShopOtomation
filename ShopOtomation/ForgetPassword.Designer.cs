@@ -128,6 +128,7 @@
             this.NewPassword.Name = "NewPassword";
             this.NewPassword.Size = new System.Drawing.Size(320, 24);
             this.NewPassword.TabIndex = 4;
+            this.NewPassword.UseSystemPasswordChar = true;
             // 
             // NewPasswordAgain
             // 
@@ -137,6 +138,7 @@
             this.NewPasswordAgain.Name = "NewPasswordAgain";
             this.NewPasswordAgain.Size = new System.Drawing.Size(320, 24);
             this.NewPasswordAgain.TabIndex = 5;
+            this.NewPasswordAgain.UseSystemPasswordChar = true;
             // 
             // Username
             // 

@@ -55,6 +55,7 @@
             this.Password.Name = "Password";
             this.Password.Size = new System.Drawing.Size(320, 24);
             this.Password.TabIndex = 4;
+            this.Password.UseSystemPasswordChar = true;
             // 
             // RemindMe
             // 

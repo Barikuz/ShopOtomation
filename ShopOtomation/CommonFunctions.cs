@@ -36,5 +36,26 @@ namespace ShopOtomation
             timer.Start();
         }
 
+        public static bool IsFieldEmpty(Control control, string name,ref string nullErrorsString) // Checks if input fields empty on RegisterPage form
+        {
+            if (control.Text != "")
+            {
+                return false;
+            }
+            else
+            {
+                nullErrorsString += $"{name} alanı boş olamaz\n";
+                return true;
+            }
+        }
+
+        public static void Page_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Eğer formu kapatıyorsak, uygulamayı sonlandır
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                Application.Exit(); // Uygulamanın tamamen kapanmasını sağlar
+            }
+        }
     }
 }
