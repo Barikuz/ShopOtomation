@@ -61,6 +61,7 @@
             this.ResetPassword.Size = new System.Drawing.Size(150, 50);
             this.ResetPassword.TabIndex = 7;
             this.ResetPassword.UseVisualStyleBackColor = false;
+            this.ResetPassword.Click += new System.EventHandler(this.ResetPassword_Click);
             // 
             // Close
             // 

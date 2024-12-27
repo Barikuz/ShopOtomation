@@ -22,11 +22,11 @@ namespace ShopOtomation
 
         public LoginPage()
         {
-            
             InitializeComponent();
             DoubleBuffered = true;
-
         }
+
+
 
         public static bool checkUserRemembered()
         {
@@ -34,7 +34,7 @@ namespace ShopOtomation
             {
                 string query = "SELECT* FROM users WHERE remember_me = 1";
                 
-                queryOnUsersTable("", query);
+                queryOnUsersTable("", "", query, connectionString, user);
 
                 if (user.Count != 0)
                 {
@@ -51,6 +51,8 @@ namespace ShopOtomation
             }
         }
 
+
+        //Click Events
         private void Login_Click(object sender, EventArgs e)
         {
             nullErrorsString = null;
@@ -60,7 +62,7 @@ namespace ShopOtomation
                 username = Username.Text;
                 password = Password.Text;
                 query = "SELECT * FROM users WHERE username = @username LIMIT 1";
-                queryOnUsersTable(username, query);
+                queryOnUsersTable(username, "", query,connectionString, user);
 
                 if (user != null && (string)user["user_password"] == password)
                 {
@@ -72,20 +74,20 @@ namespace ShopOtomation
                     MessageBox.Show("Giriş başarısız!\nKullanıcı adı veya şifre hatalı!",
                         "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                    
+
 
                 if (RemindMe.Checked)
                 {
                     query = "UPDATE users SET remember_me = 1 WHERE username = @username LIMIT 1";
 
-                    using(MySqlConnection connection = new MySqlConnection(connectionString))
+                    using (MySqlConnection connection = new MySqlConnection(connectionString))
                     {
                         try
                         {
                             connection.Open();
                             using (MySqlCommand command = new MySqlCommand(query, connection))
                             {
-                                command.Parameters.AddWithValue("@username",username);
+                                command.Parameters.AddWithValue("@username", username);
 
                                 command.ExecuteNonQuery();
                             }
@@ -95,45 +97,12 @@ namespace ShopOtomation
                             Console.WriteLine("Hata: " + ex.Message);
                         }
                     }
-                    
+
                 }
             }
             else
             {
                 MessageBox.Show(nullErrorsString, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private static void queryOnUsersTable(string username,string query)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {
-                        if(username != "")
-                        {
-                            command.Parameters.AddWithValue("@username", username);
-                        }
-
-                        using (MySqlDataReader reader = command.ExecuteReader()) {
-                            while (reader.Read())
-                            {
-                                for (int i = 0; i < reader.FieldCount; i++)
-                                {
-                                    user.Add(reader.GetName(i), reader.GetValue(i));
-                                }
-                            }
-                        } 
-                        
-                    }
-                }
-                catch (Exception ex){
-                    Console.WriteLine("Hata: " + ex.Message);
-                    MessageBox.Show("Bir hata meydana geldi!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
             }
         }
 

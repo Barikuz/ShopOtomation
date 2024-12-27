@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ShopOtomation
 {
@@ -55,6 +56,49 @@ namespace ShopOtomation
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 Application.Exit(); 
+            }
+        }
+
+        public static void queryOnUsersTable(string username,string password, string query,string connectionString, Dictionary<string, object> user)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        if (username != "")
+                        {
+                            command.Parameters.AddWithValue("@username", username);
+                        }
+
+                        if(password != "")
+                        {
+                            command.Parameters.AddWithValue("@password", password);
+
+                        }
+
+
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                for (int i = 0; i < reader.FieldCount; i++)
+                                {
+                                    if (!user.ContainsKey(reader.GetName(i)))
+                                        user.Add(reader.GetName(i), reader.GetValue(i));
+                                }
+                            }
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Hata: " + ex.Message);
+                    MessageBox.Show("Bir hata meydana geldi!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
