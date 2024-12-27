@@ -6,6 +6,7 @@ using DevExpress.UserSkins;
 using DevExpress.Skins;
 using DevExpress.LookAndFeel;
 
+
 namespace ShopOtomation
 {
     static class Program
@@ -20,7 +21,14 @@ namespace ShopOtomation
             Application.SetCompatibleTextRenderingDefault(false);
 
             BonusSkins.Register();
-            Application.Run(new LoginPage());
+            if (LoginPage.checkUserRemembered())
+            {
+                Application.Run(new MainPage());
+            }
+            else
+            {
+                Application.Run(new LoginPage());
+            }
         }
     }
 }
