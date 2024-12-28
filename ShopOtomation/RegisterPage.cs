@@ -16,168 +16,175 @@ namespace ShopOtomation
 {
     public partial class RegisterPage : Form
     {
-
-        string connectionString = "Server=localhost;Database=shopotomation;Uid=root;Pwd=190464;"; // For database connection
-        string nullErrorsString; // For record error messages if fields on form are empty
-        InputData[] databaseEntries = new InputData[6]; // For data entry into the database
-
+        string fieldEmptyErrorsString; // For record error messages if fields on form are empty
+        InputData[] databaseEntries = new InputData[7]; // For data entry into the database
+        string query;
 
 
+        
         public RegisterPage()
         {
             InitializeComponent();
             DoubleBuffered = true;
 
-            FillSecurityQuestions();
+            query = "SELECT id,question FROM security_questions";
+            FillSecurityQuestions(query);
+
             CreateDatabaseEntries();
         }
 
-        private void FillSecurityQuestions() // Fills the SecurityQuestion ComboBoxEdit with QuestionItem objects
+
+
+        //'Prepare to saving process' functions
+        private void FillSecurityQuestions(string query) // Fills the SecurityQuestion ComboBoxEdit with QuestionItem objects
         {
-            string query = "SELECT id,question FROM security_questions";
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            //Prepare for DB connection
+            MySqlCommand command = prepareDBCommand(query);
+            MySqlDataReader reader = prepareDBReader(command);
+
+            try
             {
-                try
+                //Pull data as long as there is data to read
+                while (reader.Read())
                 {
-                    connection.Open();
-                    MySqlCommand command = new MySqlCommand(query, connection);
+                    // Get datas from reader
+                    string id = reader.GetInt32("id").ToString();
+                    string question = reader.GetString("question");
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-
-                            string id = reader.GetInt32("id").ToString();
-                            string question = reader.GetString("question");
-
-                            // It is added together with the id so that the id can be added to the database later.
-                            SecurityQuestion.Properties.Items.Add(new QuestionItem(id,question));
-                            
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Hata: " + ex.Message);
-                    MessageBox.Show("Veritabanı tarafında bir sorun oluştu.\nGüvenlik soruları getirilemedi.",
-                        "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // It is added together with the id so that the id can be added to the database later.
+                    SecurityQuestion.Properties.Items.Add(new QuestionItem(id, question));
                 }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hata: " + ex.Message);
+
+                MessageBox.Show("Veritabanı tarafında bir sorun oluştu.\nGüvenlik soruları getirilemedi.",
+                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            //Close everything after finished
+            reader.Close();
+            connection.Close();
         }
 
         private void CreateDatabaseEntries() // Create InputData objects and add them to an array for insert data to database later
         {
-            databaseEntries[0] = new InputData("username", "Kullanıcı adı", Username);
-            databaseEntries[1] = new InputData("user_password", "Parola", Password);
-            databaseEntries[2] = new InputData("first_name", "Ad", FirstName);
-            databaseEntries[3] = new InputData("surname", "Soyad", Surname);
-            databaseEntries[4] = new InputData("security_question_id", "Güvenlik sorusu", SecurityQuestion);
-            databaseEntries[5] = new InputData("security_question_answer", "Güvenlik sorusunun cevabı", SecurityQuestionAnswer);
+            databaseEntries[0] = new InputData("first_name", "Ad", FirstName);
+            databaseEntries[1] = new InputData("surname", "Soyad", Surname);
+            databaseEntries[2] = new InputData("username", "Kullanıcı adı", Username);
+            databaseEntries[3] = new InputData("user_password", "Parola", Password);
+            databaseEntries[4] = new InputData("user_password", "Parola tekrarı", PasswordAgain);
+            databaseEntries[5] = new InputData("security_question_id", "Güvenlik sorusu", SecurityQuestion);
+            databaseEntries[6] = new InputData("security_question_answer", "Güvenlik sorusunun cevabı", SecurityQuestionAnswer);
         }
 
-        private void FillInputDatas() // Takes data from the form fields and fills it into InputData objects
+
+
+        //Save user to database functions
+        private void FillInputDataObjects() // Takes data from the form fields and fills it into InputData objects
         {
             foreach (InputData inputData in databaseEntries)
             {
-                if (!IsFieldEmpty(inputData.control, inputData.fieldNameOnForm,ref nullErrorsString)) // Check if the field is empty and prepare the error message
+                if (!IsFieldEmpty(inputData.control, inputData.fieldNameOnForm, ref fieldEmptyErrorsString)) // Check if the field is empty and prepare the error message
                 {
-                    if (inputData.control is TextBox)
-                        inputData.value = inputData.control.Text; // If input field is a TextBox, get text
-
-                    if (inputData.control is DevExpress.XtraEditors.ComboBoxEdit) // If input field is a DevExpress ComboBoxEdit, get SelectedItem id
+                    if (inputData.fieldNameOnForm == "Parola tekrarı") 
                     {
-                        QuestionItem questionItem = (QuestionItem) SecurityQuestion.SelectedItem;
-                        inputData.value = questionItem.id;
+                        continue; //Becase there is no data for save to DB
                     }
-                }
+                    else
+                    {
+                        if (inputData.control is TextBox)
+                            inputData.value = inputData.control.Text; // If input field is a TextBox, get text
+
+                        if (inputData.control is DevExpress.XtraEditors.ComboBoxEdit) // If input field is a DevExpress ComboBoxEdit, get SelectedItem's id
+                        {
+                            QuestionItem questionItem = (QuestionItem)SecurityQuestion.SelectedItem;
+                            inputData.value = questionItem.id;
+                        }
+                    }
+                }  
             }
-        } 
+        }
+
+        // Prepares query for save new user to users table
+        public string PrepareSaveNewUserQuery()
+        {
+            // The main query we will fill in later
+            string baseQuery = "INSERT INTO users ({0}) VALUES ({1})";
+
+            List<string> columnNames = new List<string>();
+            List<string> valuesPlaceHolders = new List<string>();
+
+            // Get all column names from InputData objects, save them and make placeholders for values section 
+            foreach (InputData inputData in databaseEntries)
+            {
+                columnNames.Add(inputData.columnNameOnDatabase);
+                valuesPlaceHolders.Add($"@{inputData.columnNameOnDatabase}");
+            }
+
+            string columns = string.Join(", ", columnNames);
+            string valuePlaceholders = string.Join(", ", valuesPlaceHolders);
+
+            // Fill the main query with column names and placeholders
+            string query = string.Format(baseQuery, columns, valuePlaceholders);
+
+            return query;
+        }
 
         private void InsertDatabaseEntries() // Retrieves data and saves it to database
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            query = PrepareSaveNewUserQuery();
+            MySqlCommand command = prepareDBCommand(query);
+            
+            try
             {
-                try
+                // Fill the value placeholders in the main query with actual values
+                foreach (InputData inputData in databaseEntries)
                 {
-                    connection.Open();
-
-                    // The main query we will fill in later
-                    string baseQuery = "INSERT INTO users ({0}) VALUES ({1})";
-
-                    List<string> columnNames = new List<string>();
-                    List<string> values = new List<string>();
-
-                    // Get all column names from InputData objects, save them and make placeholders for values section 
-                    foreach (InputData inputData in databaseEntries)
+                    // Check column name and make the required type conversion
+                    if (inputData.columnNameOnDatabase == "security_question_id")
                     {
-                        columnNames.Add(inputData.columnNameOnDatabase);
-                        values.Add($"@{inputData.columnNameOnDatabase}");
+                        command.Parameters.AddWithValue($"@{inputData.columnNameOnDatabase}", Convert.ToInt32(inputData.value));
                     }
-
-                    string columns = string.Join(", ", columnNames);
-                    string valuePlaceholders = string.Join(", ", values);
-
-                    // Fill the main query with column names and placeholders
-                    string query = string.Format(baseQuery, columns, valuePlaceholders);
-
-
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    else
                     {
-                        // Fill the value placeholders in the main query with actual values
-                        foreach (InputData inputData in databaseEntries)
-                        {
-                            // Check column name and make the required type conversion
-                            if (inputData.columnNameOnDatabase == "security_question_id")
-                            {
-                                command.Parameters.AddWithValue($"@{inputData.columnNameOnDatabase}", Convert.ToInt32(inputData.value));
-                            }
-                            else
-                            {
-                                command.Parameters.AddWithValue($"@{inputData.columnNameOnDatabase}", inputData.value);
-                            }
-                        }
-
-                        int result = command.ExecuteNonQuery();
-
-                        // Check the result and notify the user
-                        if (result > 0)
-                        {
-                            MessageBox.Show("Başarıyla kayıt olundu!", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            switchBetweenPagesWithAnimation(this, new LoginPage());
-                        }
-                        else
-                        {
-                            MessageBox.Show("Kayıt işlemi başarısız.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        command.Parameters.AddWithValue($"@{inputData.columnNameOnDatabase}", inputData.value);
                     }
                 }
 
-                catch (MySqlException ex)
+                bool isSuccessful = prepareDBNonQuery(command);
+
+                if (isSuccessful)
                 {
-                    Console.WriteLine("Hata: " + ex.Message);
-                    if (ex.Number == 1062) // Duplicate entry (UNIQUE violation)
-                    {
-                        MessageBox.Show("Bu kullanıcı adı zaten alınmış!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    switchBetweenPagesWithAnimation(this, new LoginPage());
                 }
 
-                catch (Exception ex)
+            }
+
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Hata: " + ex.Message);
+
+                if (ex.Number == 1062) // Duplicate entry (UNIQUE violation)
                 {
-                    Console.WriteLine("Hata: " + ex.Message);
-                    MessageBox.Show("Kayıt işlemi başarısız.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Bu kullanıcı adı zaten alınmış!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hata: " + ex.Message);
+                MessageBox.Show("Kayıt işlemi başarısız.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            connection.Close();
         }
 
 
 
         //Click Events
-        private void Login_Click(object sender, EventArgs e)
-        {
-            switchBetweenPagesWithAnimation(this, new LoginPage());
-        }
-
         private void Close_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -188,33 +195,34 @@ namespace ShopOtomation
             WindowState = FormWindowState.Minimized;
         }
 
+        private void Login_Click(object sender, EventArgs e)
+        {
+            switchBetweenPagesWithAnimation(this, new LoginPage());
+        }
+
         private void Register_Click(object sender, EventArgs e) // Get user inputs and save them
         {
-            nullErrorsString = null;
+            fieldEmptyErrorsString = null;
 
-            FillInputDatas();
+            FillInputDataObjects();
+
             
-            IsFieldEmpty(PasswordAgain, "Şifre tekrarı",ref nullErrorsString);
-
-            if(nullErrorsString != null)
+            if(fieldEmptyErrorsString != null)
             {
-                MessageBox.Show(nullErrorsString,"Hata",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show(fieldEmptyErrorsString,"Hata",MessageBoxButtons.OK,MessageBoxIcon.Error); //Show error messages for empty fields
             }
             else
             {
                 if (Password.Text == PasswordAgain.Text)
                 {
-                    InsertDatabaseEntries();
+                    InsertDatabaseEntries(); //Insert datas if passwords matches
                 }
                 else
                 {
-                    MessageBox.Show("Parolalar eşleşmiyor!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Parolalar eşleşmiyor!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error); //Show error if not
                 }
             }
-
-            
         }
-
     }
 
     public class QuestionItem // Class that combines security questions with id
@@ -248,7 +256,5 @@ namespace ShopOtomation
             this.fieldNameOnForm = fieldNameOnForm;
         }
     }
-
-
 
 }

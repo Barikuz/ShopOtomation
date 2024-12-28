@@ -10,6 +10,8 @@ namespace ShopOtomation
 {
     public static class CommonFunctions
     {
+        static string connectionString = "Server=localhost;Database=shopotomation;Uid=root;Pwd=190464;"; // For database connection
+        public static MySqlConnection connection = new MySqlConnection(connectionString);
 
         public static void switchBetweenPagesWithAnimation(Form pageToClose,Form pageToOpen)
         {
@@ -102,5 +104,68 @@ namespace ShopOtomation
             }
         }
 
+        public static MySqlCommand prepareDBCommand(string query)
+        {
+            try
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
+
+                return command;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hata: " + ex.Message);
+
+                MessageBox.Show("Bir hata oluştu!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return null;
+            }
+        }
+
+        public static MySqlDataReader prepareDBReader(MySqlCommand command)
+        {
+            try
+            {
+                MySqlDataReader reader = command.ExecuteReader();
+
+                return reader;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hata: " + ex.Message);
+
+                MessageBox.Show("Bir hata oluştu!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return null;
+            }
+        }
+
+        public static bool prepareDBNonQuery(MySqlCommand command)
+        {
+            try
+            {
+                int result = command.ExecuteNonQuery();
+
+                // Check the result and notify the user
+                if (result > 0)
+                {
+                    MessageBox.Show("İşlem Başarılı!", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("İşlem başarısız.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hata: " + ex.Message);
+
+                MessageBox.Show("Bir hata oluştu!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
     }
 }
