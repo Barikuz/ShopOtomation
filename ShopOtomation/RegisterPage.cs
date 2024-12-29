@@ -16,7 +16,7 @@ namespace ShopOtomation
 {
     public partial class RegisterPage : Form
     {
-        string fieldEmptyErrorsString; // For record error messages if fields on form are empty
+        // For record error messages if fields on form are empty
         InputData[] databaseEntries = new InputData[7]; // For data entry into the database
         string query;
 
@@ -87,6 +87,7 @@ namespace ShopOtomation
         {
             foreach (InputData inputData in databaseEntries)
             {
+                // Check if the relevant fields are empty and if so fill in the error message string to show to the user later
                 if (!IsFieldEmpty(inputData.control, inputData.fieldNameOnForm, ref fieldEmptyErrorsString)) // Check if the field is empty and prepare the error message
                 {
                     if (inputData.fieldNameOnForm == "Parola tekrarı") 

@@ -10,8 +10,12 @@ namespace ShopOtomation
 {
     public static class CommonFunctions
     {
-        static string connectionString = "Server=localhost;Database=shopotomation;Uid=root;Pwd=190464;"; // For database connection
+        public static string connectionString = "Server=localhost;Database=shopotomation;Uid=root;Pwd=190464;"; // For database connection
         public static MySqlConnection connection = new MySqlConnection(connectionString);
+        public static string fieldEmptyErrorsString; // For record error messages if fields on form are empty
+        public static string query;
+
+
 
         public static void switchBetweenPagesWithAnimation(Form pageToClose,Form pageToOpen)
         {
@@ -63,45 +67,39 @@ namespace ShopOtomation
 
         public static void queryOnUsersTable(string username,string password, string query,string connectionString, Dictionary<string, object> user)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            // Prepare for query
+            MySqlCommand command = prepareDBCommand(query);
+
+            if (username != "")
+                command.Parameters.AddWithValue("@username", username);
+
+            if (password != "")
+                command.Parameters.AddWithValue("@password", password);
+
+            MySqlDataReader reader = prepareDBReader(command);
+
+            try
             {
-                try
+                while (reader.Read())
                 {
-                    connection.Open();
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    for (int i = 0; i < reader.FieldCount; i++)
                     {
-                        if (username != "")
-                        {
-                            command.Parameters.AddWithValue("@username", username);
-                        }
-
-                        if(password != "")
-                        {
-                            command.Parameters.AddWithValue("@password", password);
-
-                        }
-
-
-                        using (MySqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                for (int i = 0; i < reader.FieldCount; i++)
-                                {
-                                    if (!user.ContainsKey(reader.GetName(i)))
-                                        user.Add(reader.GetName(i), reader.GetValue(i));
-                                }
-                            }
-                        }
-
+                        //Save the user in the user-dictionary if doesn't exist 
+                        if (!user.ContainsKey(reader.GetName(i))) //For the avoid forget password queries errors
+                            user.Add(reader.GetName(i), reader.GetValue(i));
                     }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Hata: " + ex.Message);
-                    MessageBox.Show("Bir hata meydana geldi!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                
+                
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hata: " + ex.Message);
+                MessageBox.Show("Bir hata meydana geldi!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            reader.Close();
+            connection.Close();   
         }
 
         public static MySqlCommand prepareDBCommand(string query)

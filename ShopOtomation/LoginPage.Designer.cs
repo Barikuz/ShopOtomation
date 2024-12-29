@@ -159,6 +159,7 @@
             this.Controls.Add(this.Password);
             this.Controls.Add(this.Username);
             this.DoubleBuffered = true;
+            this.FormBorderEffect = DevExpress.XtraEditors.FormBorderEffect.Shadow;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "LoginPage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
