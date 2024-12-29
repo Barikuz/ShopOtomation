@@ -1,14 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
-using DevExpress.XtraEditors.Controls;
 using static ShopOtomation.CommonFunctions;
 
 
@@ -188,17 +181,17 @@ namespace ShopOtomation
         //Click Events
         private void Close_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Application.Exit(); //Close app
         }
 
         private void Minimize_Click(object sender, EventArgs e)
         {
-            WindowState = FormWindowState.Minimized;
+            WindowState = FormWindowState.Minimized; //Minimize app
         }
 
         private void Login_Click(object sender, EventArgs e)
         {
-            switchBetweenPagesWithAnimation(this, new LoginPage());
+            switchBetweenPagesWithAnimation(this, new LoginPage()); //Redirect to login screen
         }
 
         private void Register_Click(object sender, EventArgs e) // Get user inputs and save them
@@ -257,5 +250,4 @@ namespace ShopOtomation
             this.fieldNameOnForm = fieldNameOnForm;
         }
     }
-
 }

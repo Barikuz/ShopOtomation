@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using static ShopOtomation.CommonFunctions;
-using System.Drawing.Drawing2D;
+
 
 namespace ShopOtomation
 {
@@ -53,6 +48,26 @@ namespace ShopOtomation
 
 
         //Click Events
+        private void Close_Click(object sender, EventArgs e)
+        {
+            Application.Exit(); //Close app
+        }
+
+        private void Minimize_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized; //Minimize app
+        }
+
+        private void Register_Click(object sender, EventArgs e)
+        {
+            switchBetweenPagesWithAnimation(this, new RegisterPage()); //Redirect to register screen
+        }
+
+        private void ForgetPassword_Click(object sender, EventArgs e)
+        {
+            switchBetweenPagesWithAnimation(this, new ForgetPassword()); //Redirect to 'I forgot my password' screen
+        }
+
         private void Login_Click(object sender, EventArgs e)
         {
             fieldEmptyErrorsString = null;
@@ -65,7 +80,7 @@ namespace ShopOtomation
                 password = Password.Text;
 
                 query = "SELECT * FROM users WHERE username = @username LIMIT 1";
-                queryOnUsersTable(username, "", query,connectionString, user); // Get the correct user if exist
+                queryOnUsersTable(username, "", query, connectionString, user); // Get the correct user if exist
 
                 //Log in if user exists and password is correct
                 if (user != null && (string)user["user_password"] == password)
@@ -86,7 +101,7 @@ namespace ShopOtomation
                     query = "UPDATE users SET remember_me = 1 WHERE username = @username LIMIT 1";
 
                     MySqlCommand command = prepareDBCommand(query);
-                    
+
                     try
                     {
                         command.Parameters.AddWithValue("@username", username);
@@ -103,26 +118,6 @@ namespace ShopOtomation
             {
                 MessageBox.Show(fieldEmptyErrorsString, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void Register_Click(object sender, EventArgs e)
-        {
-            switchBetweenPagesWithAnimation(this, new RegisterPage());
-        }
-
-        private void ForgetPassword_Click(object sender, EventArgs e)
-        {
-            switchBetweenPagesWithAnimation(this, new ForgetPassword());
-        }
-
-        private void Close_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void Minimize_Click(object sender, EventArgs e)
-        {
-            WindowState = FormWindowState.Minimized;
         }
     }
 }
