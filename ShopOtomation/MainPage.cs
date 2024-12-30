@@ -8,7 +8,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraBars;
-using static ShopOtomation.CommonFunctions;
 
 namespace ShopOtomation
 {
@@ -17,7 +16,6 @@ namespace ShopOtomation
         public MainPage()
         {
             InitializeComponent();
-            FormClosing += Page_FormClosing;
         }
     }
 }
